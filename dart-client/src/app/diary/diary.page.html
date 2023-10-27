@@ -1,0 +1,77 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>DART - DIARY</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+
+  <div class="container">
+
+    <div class="row">
+      <!-- {{message}} -->
+      <form #dartForm='ngForm' (ngSubmit)='onSubmit()'>
+        <div class="row">
+          <div class="form-group col col-12">
+            <H1>SEARCH</H1>
+            <div *ngIf="message" class="alert alert-sucess">{{message}}</div>
+            <div class="form-group col col-4">
+              <label for="username">Name: </label>
+              <select #inputName class="form-control" id="username">
+                <option>SELECT</option>
+                <option>Monicka</option>
+                <option>Hema</option>
+                <option>Ramesh</option>
+                <option>Madhavan</option>
+                <option>Aadhavan</option>
+                <option>Madhan</option>
+                <option>Prasanth</option>
+              </select>
+            </div>
+            <div class="form-group col col-4">
+              <label for="date">Date:</label>
+              <input type="text" #inputDate class="form-control" id="date">
+            </div>
+            <div class="form-group col col-3">
+              <button class="btn btn-primary" (click)="onClick(inputName.value, inputDate.value)">Get Day
+                Plan</button>
+            </div>
+          </div>
+        </div>
+        <div class="container" *ngIf='darts?.length > 0'>
+          
+        <H1>RESULT</H1>
+            <ion-card *ngFor="let dart of darts; let i = index" [attr.data-index]="i">
+              <ion-card-header>
+                <ion-card-subtitle>{{dart.taskDate}}</ion-card-subtitle>
+                <ion-card-title>{{dart.userName}}</ion-card-title>
+              </ion-card-header>
+              <ion-card-content>
+                <div><b>Date:</b> {{dart.taskDate}} </div> <br />
+                <div><b>Time:</b> {{dart.fromTime}} - {{dart.toTime}}</div> <br />
+                <div><b>Planned Task:</b> {{dart.plannedTask}} </div> <br />
+                <div><b>Actual Task:</b> {{dart.actualTask}} </div> <br />
+                <div><b>Actual Task:</b> <input type='text' class="form-control" #actualTask='ngModel' name='remarks-{{i}}'
+                  [(ngModel)]=dart.actualTask /> </div> <br />
+                <div><b>Remarks:</b> {{dart.remarks}}</div> <br />
+              </ion-card-content>
+            </ion-card>
+            <div class="form-group">
+                <button class="btn btn-primary" type='submit'>Update Day Diary</button>
+              </div>
+            <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
+              <ion-infinite-scroll-content
+                loadingSpinner="bubbles"
+                loadingText="Loading more data...">
+              </ion-infinite-scroll-content>
+            </ion-infinite-scroll> 
+          </div>
+        
+      </form>
+    </div>
+  </div>
+
+</ion-content>

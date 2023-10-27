@@ -1,0 +1,76 @@
+<ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title>DART - PLANNER</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+<ion-content overflow-scroll="true">
+  <form #dartForm='ngForm' (ngSubmit)='onSubmit(inputName.value, inputDate.value)'>
+    <h1>DART - PLANNER</h1>
+Message:  {{message}}
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <div class="form-group">
+            <label for="username">Name: </label>
+            <select #inputName id="username" class="form-control">
+              <option>SELECT</option>
+              <option>Monicka</option>
+              <option>Hema</option>
+              <option>Ramesh</option>
+              <option>Madhavan</option>
+              <option>Aadhavan</option>
+              <option>Madhan</option>
+              <option>Prasanth</option>
+            </select>
+          </div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <div class="form-group">
+            <label for="date">Date:</label>
+            <input type="text" #inputDate id="date" class="form-control" />
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <ion-grid *ngFor="let dart of darts;let index = index; trackBy:trackByIndex;" scope="row">
+      <ion-row>
+        <ion-col>
+          From Time: <input type='text' class="form-control" name='from-{{index}}' [(ngModel)]="dart.fromTime" />
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          To Time: <input type='text' class="form-control" #toTime='ngModel' name='toTime-{{index}}'
+            [(ngModel)]=dart.toTime />
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          Plan Task: <input type='text' class="form-control" #plannedTask='ngModel' name='plannedTask-{{index}}'
+            [(ngModel)]=dart.plannedTask />
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          Remarks: <input type='text' class="form-control" #remarks='ngModel' name='remarks-{{index}}'
+            [(ngModel)]=dart.remarks />
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+          <div class="form-group">
+            <button class="btn btn-primary" type='submit'>Add Day Plan</button>
+          </div>
+  </form>
+  <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
+    <ion-infinite-scroll-content
+      loadingSpinner="bubbles"
+      loadingText="Loading more data...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll> 
+</ion-content>

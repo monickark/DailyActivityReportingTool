@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-toolbar>
+      <ion-buttons slot="start">
+          <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+    <ion-title>DART - REPORT</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content padding>
+  <div class="container">
+    <ion-card *ngFor="let dart of darts; let i = index" [attr.data-index]="i">
+      <ion-card-header>
+        <ion-card-subtitle>Name:</ion-card-subtitle>
+        <ion-card-title>{{dart.userName}}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <div><b>Date:</b> {{dart.taskDate}} </div> <br />
+        <div><b>Time:</b> {{dart.fromTime}} - {{dart.toTime}}</div> <br />
+        <div><b>Task:</b> {{dart.plannedTask}} </div> <br />
+        <div><b>Remarks:</b> {{dart.remarks}}</div> <br />
+      </ion-card-content>
+    </ion-card>
+    <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
+      <ion-infinite-scroll-content
+        loadingSpinner="bubbles"
+        loadingText="Loading more data...">
+      </ion-infinite-scroll-content>
+    </ion-infinite-scroll> 
+  </div>
+</ion-content>

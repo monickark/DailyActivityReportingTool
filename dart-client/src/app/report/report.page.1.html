@@ -1,0 +1,43 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>DART - REPORT</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <div class="container">
+
+    <div class="row">
+      <ion-slides pager="true">
+
+        <div *ngFor="let dart of darts; let i = index" [attr.data-index]="i">
+
+
+          <ion-slide>
+            <div *ngIf="i != 0 else elseBlock">
+              <div class="report-header" *ngIf="darts[i].userName != darts[i-1].userName else elseBlock">
+
+                <b>Name:</b> {{dart.userName}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>Date:</b>
+                {{dart.taskDate}}
+              </div>
+
+              <ng-template #elseBlock>
+                <b>Time:</b> {{dart.fromTime}} - {{dart.toTime}} <br />
+                <b>Task:</b> {{dart.plannedTask}} <br />
+                <b>Remarks:</b> {{dart.remarks}} <br />
+              </ng-template>
+
+            </div>
+          
+          <ng-template #elseBlock>
+          <div class="report-header">
+            <b>Name:</b> {{dart.userName}} <b>Date:</b> {{dart.taskDate}}
+          </div>
+        </ng-template> 
+      </ion-slide>
+        </div>
+      </ion-slides>
+    </div>
+  </div>
+
+</ion-content>
